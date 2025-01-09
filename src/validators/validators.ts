@@ -1,0 +1,1 @@
+// export const isUserPreferences = (object: Record<string)

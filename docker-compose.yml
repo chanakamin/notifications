@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  notification-management:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+      AUTH_TOKEN: onlyvim2024
+      NOTIFICATION_URL: http://host.docker.internal:5001
+    ports:
+      - "8080:8080"
+    depends_on:
+      - notification-service
+
+  notification-service:
+    image: aryekog/backend-interview-notifications-service:0.0.2
+    ports:
+      - "5001:5001"
+    environment:
+      - EMAIL_RATE_LIMIT=1
+      - SMS_RATE_LIMIT=1
+      - RATE_LIMIT_WINDOW_MS=1000
+      - ERROR_RATE=0.1 
